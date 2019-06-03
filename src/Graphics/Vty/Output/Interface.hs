@@ -189,7 +189,7 @@ outputPicture dc pic = do
                     AbsoluteCursor x y ->
                         writeShowCursor dc `mappend`
                         writeMoveCursor dc (clampX x) (clampY y)
-                    Cursor x y           ->
+                    Cursor x y          ->
                         let m = cursorOutputMap ops $ picCursor pic
                             (ox, oy) = charToOutputPos m (clampX x, clampY y)
                         in writeShowCursor dc `mappend`

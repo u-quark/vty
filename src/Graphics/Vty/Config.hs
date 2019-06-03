@@ -152,8 +152,8 @@ instance Semigroup Config where
         , bracketedPasteMode = bracketedPasteMode c1
         , debugLog      = debugLog c1 <|> debugLog c0
         , inputMap      = inputMap c0 <>  inputMap c1
-        , inputFd      = inputFd c1 <|> inputFd c0
-        , outputFd     = outputFd c1 <|> outputFd c0
+        , inputFd       = inputFd c1  <|> inputFd c0
+        , outputFd      = outputFd c1 <|> outputFd c0
         , termName      = termName c1 <|> termName c0
         }
 
@@ -165,8 +165,8 @@ instance Monoid Config where
         , bracketedPasteMode = Nothing
         , debugLog     = mempty
         , inputMap     = mempty
-        , inputFd     = Nothing
-        , outputFd    = Nothing
+        , inputFd      = Nothing
+        , outputFd     = Nothing
         , termName     = Nothing
         }
 #if !(MIN_VERSION_base(4,11,0))
