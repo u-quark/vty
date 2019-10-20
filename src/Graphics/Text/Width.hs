@@ -17,7 +17,7 @@ import Data.List (foldl')
 import qualified Data.Text as T
 import qualified Data.Text.Lazy as TL
 
-foreign import ccall unsafe "vty_mk_wcwidth" wcwidth :: Char -> Int
+foreign import ccall unsafe "wcwidth" wcwidth :: Char -> Int
 
 wcswidth :: String -> Int
 wcswidth = foldl' (\l c -> wcwidth c + l) 0
