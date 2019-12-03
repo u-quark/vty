@@ -82,6 +82,8 @@ mockTerminal r = liftIO $ do
                 , writeRowEnd = writeWord8 $ toEnum $ fromEnum 'E'
                 , inlineHack = return ()
                 }
+                , setBackgroundColor = const $ return ()
+                , resetBackgroundColor = return ()
             }
     return (outRef, t)
 

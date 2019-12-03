@@ -10,7 +10,7 @@ where
 import Graphics.Vty.Output.Interface
 import Graphics.Vty.Input.Mouse
 import Graphics.Vty.Input.Focus
-import Graphics.Vty.Attributes.Color (ColorMode)
+import Graphics.Vty.Attributes.Color (ColorMode, colorHexString)
 import qualified Graphics.Vty.Output.TerminfoBased as TerminfoBased
 
 import Blaze.ByteString.Builder (writeToByteString)
@@ -87,6 +87,8 @@ reserveTerminal variant outFd colorMode = liftIO $ do
              , supportsMode = const True
              , getModeStatus = xtermGetMode
              , setMode = xtermSetMode t'
+             , setBackgroundColor = \c -> liftIO $ flushedPut ("\ESC]11;" <> colorHexString c <> "\a")
+             , resetBackgroundColor = liftIO $ flushedPut "\ESC]111\a"
              }
     return t'
 

@@ -97,6 +97,10 @@ data Output = Output
       -- | Returns whether the terminal has an audio bell feature.
     , supportsBell :: IO Bool
     , outputColorMode :: ColorMode
+      -- | Set the background color of the terminal
+    , setBackgroundColor :: Color -> IO ()
+      -- | Reset the background color of the terminal to the default value
+    , resetBackgroundColor :: IO ()
     }
 
 displayContext :: Output -> DisplayRegion -> IO DisplayContext

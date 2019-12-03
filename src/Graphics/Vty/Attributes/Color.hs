@@ -4,6 +4,7 @@
 
 module Graphics.Vty.Attributes.Color
   ( Color(..)
+  , colorHexString
   , ColorMode(..)
 
   -- * Detecting Terminal Color Support
@@ -48,7 +49,7 @@ where
 import Data.Word
 import GHC.Generics
 import Control.DeepSeq
-import Text.Printf (printf)
+import Text.Printf (printf, PrintfType)
 import System.Environment (lookupEnv)
 
 import qualified System.Console.Terminfo as Terminfo
@@ -111,6 +112,16 @@ import Graphics.Vty.Attributes.Color240
 -- Seriously, terminal color support is INSANE.
 data Color = ISOColor !Word8 | Color240 !Word8 | RGBColor !Word8 !Word8 !Word8
     deriving ( Eq, Show, Read, Generic, NFData )
+
+_hexString :: (Word8, Word8, Word8) -> String
+_hexString (r, g, b) = printf "#%02x%02x%02x" r g b
+
+colorHexString :: Color -> String
+colorHexString (Color240 c) = _hexString $ (\(r, b, g) -> (fromIntegral r, fromIntegral g, fromIntegral b)) $ fromJust $ color240CodeToRGB c
+colorHexString (RGBColor r g b) = _hexString (r, g, b)
+-- Most terminal emulator set the ISO colors to some unknown value - it is probably an error to use this
+-- function with ISO colors.
+colorHexString (ISOColor _) = error "There is not standard RGB value for the ISO terminal colors"
 
 data ColorMode
     = NoColor
