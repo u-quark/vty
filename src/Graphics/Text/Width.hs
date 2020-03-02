@@ -18,7 +18,7 @@ import Foreign.C.Types (CInt(CInt), CWchar(CWchar))
 import qualified Data.Text as T
 import qualified Data.Text.Lazy as TL
 
-foreign import ccall unsafe "wcwidth" wcwidth_ :: CWchar -> CInt
+foreign import ccall unsafe "vty_wcwidth" wcwidth_ :: CWchar -> CInt
 
 wcwidth :: Char -> Int
 wcwidth = fromIntegral . wcwidth_ . CWchar . fromIntegral . fromEnum
